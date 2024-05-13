@@ -1,0 +1,48 @@
+
+
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #6F850E;  
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.title{
+  color: white
+}
+
+.home_wrapper{
+  display: flex;  
+  align-items: center;
+  flex-direction: column;
+}
+
+.button_wrapper {
+  display: flex;
+  justify-content: center;  
+
+}
+
+.button_list {
+  border-radius: 10px;
+
+}
+
+/* Employees */
+
+.employees_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
