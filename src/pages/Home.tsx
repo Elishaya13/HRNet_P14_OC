@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
+import Form from '../components/Form';
 
 const Home = () => {
   return (
     <>
-      <div className='home_wrapper'>
-        <h1 className='title'>Create employee </h1>
-        <div> Formulaire</div>
-        <div className='button_wrapper'>
+      <div className='flex flex-col items-center'>
+        <h1 className='text-white'>Create employee </h1>
+        <Form />
+        <div className='flex justify-center'>
           <Link to='/employees'>
-            <button className='button_list'>Employees List</button>
+            <button className='bg-white rounded-lg'>Employees List</button>
           </Link>
         </div>
       </div>
