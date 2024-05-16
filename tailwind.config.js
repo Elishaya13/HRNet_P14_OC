@@ -6,6 +6,7 @@ export default {
       colors: {
         customGreen: '#6F850E',
         customGreenDark: '#5a6f08',
+        customBlack: '#333333',
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],

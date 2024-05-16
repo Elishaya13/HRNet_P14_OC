@@ -8,7 +8,7 @@ const EmployeesList = () => {
       </div>
       <div className='flex justify-center'>
         <Link to='/'>
-          <button className='bg-white rounded-lg'>Home</button>
+          <button className='bg-customGreenDark rounded-lg text-white p-1'>Home</button>
         </Link>
       </div>
     </>

@@ -1,24 +1,42 @@
-import { Link, useMatch } from 'react-router-dom';
-import logo from '../assets/logo_header.png'
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/logo_header.png';
 
 const Header = () => {
-    return (
-        <header className='flex flex-col items-center pt-5'>
-            <img src={logo} alt='logo' className='w-24' />
-            {/* menu de navigation */}
-            <nav className='flex items-end pt-5' >
-                <ul className='text-white flex flex-row'>
-                <li>
-                        <Link to='/' className={`${useMatch('/') ? 'underline' : ''} mr-4 `}>Create employee</Link>
-                    </li>
-                    <li>
-                        <Link to='/employees' className={useMatch('/employees') ? 'underline' : ''}>View Current Employees</Link>
-                    </li>
-                   
-                </ul>
-            </nav>
-        </header>
-    );
-}
-    
+  const location = useLocation();
+  return (
+    <header className='flex flex-col items-center pt-5'>
+      <img src={logo} alt='hrnet_logo' className='w-24' />
+      {/* menu de navigation */}
+      <nav className='flex items-end pt-7 pb-5'>
+        <ul className='text-white flex flex-row'>
+          <li>
+            <Link
+              to='/'
+              className={`${
+                location.pathname === '/'
+                  ? 'border p-1 shadow-lg bg-customGreen text-black rounded'
+                  : 'text-black'
+              } mr-4 `}
+            >
+              Create employee
+            </Link>
+          </li>
+          <li>
+            <Link
+              to='/employees'
+              className={`${
+                location.pathname === '/employees'
+                  ? 'border p-1 shadow-lg bg-customGreen text-black rounded'
+                  : 'text-black'
+              }`}
+            >
+              View Current Employees
+            </Link>
+          </li>       
+        </ul>
+      </nav>
+    </header>
+  );
+};
+
 export default Header;

@@ -34,7 +34,7 @@ export default function Form() {
   };
   return (
     <form
-      className='border-2 border-gray-300 p-4 rounded-md'
+      className='border-2 border-customGreen p-4 rounded-md'
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='space-y-1'>
@@ -47,6 +47,7 @@ export default function Form() {
                 maxLength: 20,
               })}
               type={InputType.TEXT}
+              id='firstname'
               label='First Name'
               error={errors.firstname?.message}
             />
@@ -57,18 +58,21 @@ export default function Form() {
                 maxLength: 20,
               })}
               type={InputType.TEXT}
+              id='lastname'
               label='Last Name'
               error={errors.lastname?.message}
             />
             <InputField
               {...register('dob', { required: 'Date of Birth is required' })}
               type={InputType.DATE}
+              id='dob'
               label='Date of Birth'
               error={errors.dob?.message}
             />
             <InputField
               {...register('startdate', { required: 'Start Date is required' })}
               type={InputType.DATE}
+              id='startdate'
               label='Start Date'
               error={errors.startdate?.message}
             />
@@ -80,30 +84,33 @@ export default function Form() {
             className='absolute inset-0 flex items-center'
             aria-hidden='true'
           >
-            <div className='w-full border-t border-gray-300'></div>
+            <div className='w-full border-t border-customGreen'></div>
           </div>
           <div className='relative flex justify-center'>
-            <span className='px-2 bg-customGreen text-sm text-white'>
+            <span className='px-2 bg-customGreenDark text-sm text-white rounded'>
               Adresse
             </span>
           </div>
         </div>
         {/* end of divider */}
-        <div className='="space-y-2 pb-3'>
+        <div className='space-y-2 pb-3'>
           <InputField
             {...register('street', { required: 'Street is required' })}
             type={InputType.TEXT}
+            id='street'
             label='Street'
             error={errors.street?.message}
           />
           <InputField
             {...register('city', { required: 'City is required' })}
             type={InputType.TEXT}
+            id='city'
             label='City'
             error={errors.city?.message}
           />
           <SelectField
             {...register('country', { required: 'Country is required' })}
+            id='country'
             label='Country'
             error={errors.country?.message}
           >
@@ -119,6 +126,7 @@ export default function Form() {
           <InputField
             {...register('zip', { required: 'Zip is required' })}
             type={InputType.NUMBER}
+            id='zip'
             label='Zip'
             error={errors.zip?.message}
           />
@@ -129,13 +137,14 @@ export default function Form() {
             className='absolute inset-0 flex items-center'
             aria-hidden='true'
           >
-            <div className='w-full border-t border-gray-300'></div>
+            <div className='w-full border-t border-customGreen '></div>
           </div>
         </div>
         {/* end of divider */}
         <div className='="space-y-2 pb-3'>
           <SelectField
             {...register('department', { required: 'Department is required' })}
+            id='department'
             label='Department'
             error={errors.department?.message}
           >
@@ -151,16 +160,12 @@ export default function Form() {
         </div>
       </div>
       {/* Button */}
-      <div className='flex justify-center'>
-        {/* <button
-          className='bg-customGreenDark border-2 hover:bg-black text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-          type='submit'
-        > */}
+      <div className='flex justify-center'>      
         <button
-          className='bg-white border-2 hover:bg-customGreenDark hover:text-white text-black font-medium py-1 px-4 rounded focus:outline-none focus:shadow-outline'
+          className='bg-customGreenDark border-2 hover:bg-customBlack hover:text-white text-white font-medium py-1 px-4 rounded focus:outline-none focus:shadow-outline'
           type='submit'
         >
-          Create
+          Save
         </button>
       </div>
     </form>

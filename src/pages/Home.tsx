@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <div className='flex flex-col items-center'>
-        <h1 className='text-white py-4 text-lg'>Create employee </h1>
+        <h1 className='text-black py-4 text-lg'>Create employee </h1>
         <Form />       
       </div>
     </>
