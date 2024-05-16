@@ -8,6 +8,7 @@ import { departments } from '../data/department';
 enum InputType {
   TEXT = 'text',
   DATE = 'date',
+  NUMBER = 'number',
 }
 
 export default function Form() {
@@ -40,48 +41,36 @@ export default function Form() {
         <div className='border-gray-900/10 pb-2'>
           <div className='space-y-2'>
             <InputField
-              id='firstname'
-              name='firstname'
-              type={InputType.TEXT}
-              label='First Name'
-              register={register}
-              rules={{
+              {...register('firstname', {
                 required: 'First Name is required',
                 minLength: 2,
                 maxLength: 20,
-              }}
-              errors={errors}
+              })}
+              type={InputType.TEXT}
+              label='First Name'
+              error={errors.firstname?.message}
             />
             <InputField
-              id='lastname'
-              name='lastname'
-              type={InputType.TEXT}
-              label='Last Name'
-              register={register}
-              rules={{
+              {...register('lastname', {
                 required: 'Last Name is required',
                 minLength: 2,
                 maxLength: 20,
-              }}
-              errors={errors}
+              })}
+              type={InputType.TEXT}
+              label='Last Name'
+              error={errors.lastname?.message}
             />
             <InputField
-              id='dob'
-              name='dob'
+              {...register('dob', { required: 'Date of Birth is required' })}
               type={InputType.DATE}
               label='Date of Birth'
-              register={register}
-              rules={{ required: 'Date of Birth is required' }}
-              errors={errors}
+              error={errors.dob?.message}
             />
             <InputField
-              id='startdate'
-              name='startdate'
+              {...register('startdate', { required: 'Start Date is required' })}
               type={InputType.DATE}
               label='Start Date'
-              register={register}
-              rules={{ required: 'Start Date is required' }}
-              errors={errors}
+              error={errors.startdate?.message}
             />
           </div>
         </div>
@@ -99,48 +88,43 @@ export default function Form() {
             </span>
           </div>
         </div>
+        {/* end of divider */}
         <div className='="space-y-2 pb-3'>
           <InputField
-            id='street'
-            name='street'
+            {...register('street', { required: 'Street is required' })}
             type={InputType.TEXT}
             label='Street'
-            register={register}
-            rules={{ required: 'Street is required' }}
-            errors={errors}
+            error={errors.street?.message}
           />
           <InputField
-            id='city'
-            name='city'
+            {...register('city', { required: 'City is required' })}
             type={InputType.TEXT}
             label='City'
-            register={register}
-            rules={{ required: 'City is required' }}
-            errors={errors}
+            error={errors.city?.message}
           />
           <SelectField
-            id='country'
-            name='country'
+            {...register('country', { required: 'Country is required' })}
             label='Country'
-            register={register}
-            rules={{ required: 'Country is required' }}
-            errors={errors}
-            data={states}
-            labelKey='name'
-            valueKey='abbreviation'
-          />
+            error={errors.country?.message}
+          >
+            <option value=''>
+              {states.length > 0 ? states[0].name : 'Select...'}{' '}
+            </option>
+            {states.map((state, index) => (
+              <option key={index} value={state.abbreviation}>
+                {state.name}
+              </option>
+            ))}
+          </SelectField>
           <InputField
-            id='zip'
-            name='zip'
-            type={InputType.TEXT}
+            {...register('zip', { required: 'Zip is required' })}
+            type={InputType.NUMBER}
             label='Zip'
-            register={register}
-            rules={{ required: 'Zip is required' }}
-            errors={errors}
+            error={errors.zip?.message}
           />
         </div>
         {/* Divider */}
-        <div className='relative'>
+        <div className='relative pb-4'>
           <div
             className='absolute inset-0 flex items-center'
             aria-hidden='true'
@@ -148,25 +132,35 @@ export default function Form() {
             <div className='w-full border-t border-gray-300'></div>
           </div>
         </div>
+        {/* end of divider */}
         <div className='="space-y-2 pb-3'>
           <SelectField
-            id='department'
-            name='department'
+            {...register('department', { required: 'Department is required' })}
             label='Department'
-            register={register}
-            rules={{ required: 'Department is required' }}
-            errors={errors}
-            data={departments}
-          />
+            error={errors.department?.message}
+          >
+            <option value=''>
+              {departments.length > 0 ? departments[0] : 'Select...'}{' '}
+            </option>
+            {departments.map((department, index) => (
+              <option key={index} value={department}>
+                {department}
+              </option>
+            ))}
+          </SelectField>
         </div>
       </div>
       {/* Button */}
       <div className='flex justify-center'>
-        <button
+        {/* <button
           className='bg-customGreenDark border-2 hover:bg-black text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline'
           type='submit'
+        > */}
+        <button
+          className='bg-white border-2 hover:bg-customGreenDark hover:text-white text-black font-medium py-1 px-4 rounded focus:outline-none focus:shadow-outline'
+          type='submit'
         >
-          Submit
+          Create
         </button>
       </div>
     </form>

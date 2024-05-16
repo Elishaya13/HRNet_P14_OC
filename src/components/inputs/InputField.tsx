@@ -1,51 +1,30 @@
-import { FieldErrors, RegisterOptions, UseFormRegister } from "react-hook-form";
-import { FormValues } from "../../interfaces/Interfaces";
+import { HTMLProps, forwardRef } from 'react';
 
-enum InputType {
-    TEXT = 'text',
-    DATE = 'date',
-  }
- 
+interface InputFieldProps extends HTMLProps<HTMLInputElement> {
+  label: string;
+  error?: string; 
+}
 
-interface InputFieldProps {
-    id: string;
-    name: keyof FormValues;
-    type: InputType;
-    label: string;
-    register: UseFormRegister<FormValues>;
-    rules: RegisterOptions<FormValues, keyof FormValues>;
-    errors: FieldErrors<FormValues>;
-  }
-  
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
+  label,
+  error,
+  ...inputProps
+}, ref) => {
+  return (
+    <div>
+      <label htmlFor={inputProps.id} className='block text-xs font-bold text-gray-900'>
+        {label}
+      </label>
+      <input
+        ref={ref}
+        className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-customGreenDark focus:border-customGreenDark sm:text-sm'
+        {...inputProps}
+      />
+      {!!error && (
+        <span className='text-red-700 sm:text-sm'>{error}</span>
+      )}
+    </div>
+  );
+});
 
-const InputField = ({
-    id,
-    name,
-    type,
-    label,
-    register,
-    rules,
-    errors,
-  }: InputFieldProps) => {
-    return (
-      <div>
-        <label htmlFor={id} className='block text-xs font-bold text-gray-900'>
-          {label}
-        </label>
-        <input
-          {...register(name as keyof FormValues, rules)}
-          type={type}
-          id={id}
-          name={name}
-          className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-customGreenDark focus:border-customGreenDark sm:text-sm'      
-        />
-        {/* {Object.prototype.hasOwnProperty.call(errors, name) && (
-          <span>This field is required</span>
-        )}  */}
-        {/* {errors.hasOwnProperty(name) && (<span>{errors.firstname?.message}</span>)} */}
-        {errors[name] && <span className="text-red-700 sm:text-sm">{errors[name].message}</span>}
-      </div>
-    );
-  };
-
-  export default InputField;
+export default InputField;
