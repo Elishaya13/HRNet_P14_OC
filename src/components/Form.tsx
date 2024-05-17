@@ -1,9 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputField from './inputs/InputField';
 import SelectField from './inputs/SelectField';
-import { FormValues } from '../interfaces/Interfaces';
+import { UserValues } from '../interfaces/Interfaces';
 import { states } from '../data/countries';
 import { departments } from '../data/department';
+import { useContext } from 'react';
+import { UsersContext } from '../context/UserContext';
 
 enum InputType {
   TEXT = 'text',
@@ -16,7 +18,7 @@ export default function Form() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<UserValues>({
     defaultValues: {
       firstname: '',
       lastname: '',
@@ -28,7 +30,10 @@ export default function Form() {
     },
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const {addUser} = useContext(UsersContext);
+
+  const onSubmit: SubmitHandler<UserValues> = (data) => {
+    addUser(data);
     console.log(data);
     console.log('submitted');
   };
