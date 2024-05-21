@@ -4,7 +4,7 @@ import { mockUsers } from '../data/mockUsers';
 
 
 
-export type UsersContextValue = {
+type UsersContextValue = {
   users: UserValues[];
   addUser: (user: UserValues) => void;
  
