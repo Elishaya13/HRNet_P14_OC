@@ -22,7 +22,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
         ref={ref}     
         id={inputProps.id}
         className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-customGreenDark focus:border-customGreenDark sm:text-sm'
-        
+        {...inputProps}
       />
       {!!error && (
         <span className='text-red-700 sm:text-sm'>{error}</span>
