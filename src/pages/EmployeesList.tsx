@@ -1,11 +1,17 @@
-import { useContext} from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UsersContext } from '../context/UserContext';
 import { usePagination } from '../utils/usePagination';
 import { UserValues } from '../interfaces/Interfaces';
+import TableHeader from '../components/table/TableHeader';
 
 const EmployeesList = () => {
   const { users } = useContext(UsersContext);
+  const [usersData, setUsersData] = useState(users);
+  const [sort, setSort] = useState(true);
+  const [initialData, setInitialData] = useState(true);
+  const [columnSorted, setColumnSorted] = useState<string>('');
+
 
   const {
     currentUsers,
@@ -15,9 +21,42 @@ const EmployeesList = () => {
     currentPage,
     usersPerPage,
     totalPages,
+  } = usePagination<UserValues>(5, users);
+ 
+  interface ColumnKeys {
+    [key: string]: keyof UserValues;
+  }
 
-  } = usePagination<UserValues>(5, users);  
+  const columnKeys: ColumnKeys = {
+    'First Name': 'firstname',
+    'Last Name': 'lastname',
+    'Start Date': 'startdate',
+    'Department': 'department',
+    'Date of Birth': 'dob',
+    'Street': 'street',
+    'City': 'city',
+     'State': 'country',
+     'Zip Code': 'zip',
+  };
 
+  const handleClick = (columnTitle: string) => { 
+    setColumnSorted(columnTitle);
+    const newSort = !sort
+    setSort(newSort);
+    setInitialData(false);
+    
+    const columnKey = columnKeys[columnTitle];
+    if (columnKey) {
+      if (newSort) {
+        usersData.sort((a: UserValues, b: UserValues) => {
+          return a[columnKey].localeCompare(b[columnKey]);
+        });
+        setUsersData(usersData);
+      } else {
+        usersData.reverse();
+      }
+    }
+  };
 
   const thead = [
     'First Name',
@@ -32,14 +71,18 @@ const EmployeesList = () => {
   ];
 
   return (
-    <div className='p-5'>     
+    <div className='p-5'>
       <div className='flex flex-col items-center'>
         <h1 className='text-black font-bold m-2'>Current Employees</h1>
       </div>
       {/* Show entries */}
       <div className='flex flex-row items-center'>
         <p> Show </p>
-        <select value={usersPerPage} onChange={handleUsersPerPageChange} className='m-1 text-sm py-1 focus:ring-customGreenDark focus:border-customGreenDark'>
+        <select
+          value={usersPerPage}
+          onChange={handleUsersPerPageChange}
+          className='m-1 text-sm py-1 focus:ring-customGreenDark focus:border-customGreenDark'
+        >
           <option value='5'>5</option>
           <option value='10'>10</option>
           <option value='20'>20</option>
@@ -49,19 +92,14 @@ const EmployeesList = () => {
       {/* Table */}
       <div className='overflow-x-auto'>
         <table className='min-w-full divide-y-2 divide-gray-200 bg-white text-sm'>
-          <thead className='ltr:text-left rtl:text-right'>
-            <tr>
-              {thead.map((head, index) => (
-                <th
-                  key={index}
-                  className='whitespace-nowrap px-4 py-2 font-medium text-gray-900'
-                >
-                  {head}
-                </th>
-              ))}
-            </tr>
-          </thead>
-
+          <TableHeader
+            thead={thead}
+            handleClick={handleClick}
+            initialData={initialData}
+            columnSorted={columnSorted}
+            sort={sort}
+          />
+        
           <tbody className='divide-y divide-gray-200'>
             {currentUsers.map((user, index) => (
               <tr key={index} className='odd:bg-gray-50'>
@@ -72,7 +110,11 @@ const EmployeesList = () => {
                   {user.lastname}
                 </td>
                 <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.startdate}
+                  {new Date(user.startdate).toLocaleDateString('en-US', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    year: 'numeric',
+                  })}
                 </td>
                 <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
                   {user.department}
@@ -96,7 +138,7 @@ const EmployeesList = () => {
             ))}
           </tbody>
         </table>
-      </div>   
+      </div>
       {/* pagination */}
       <div className='flex justify-center'>
         <ol className='list-none flex space-x-2'>
@@ -135,7 +177,6 @@ const EmployeesList = () => {
         </Link>
       </div>
     </div>
-    
   );
 };
 
