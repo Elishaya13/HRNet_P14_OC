@@ -10,7 +10,7 @@ function App() {
     <div className='App'>
       <UsersProvider>
         <RouterProvider router={router} />  
-       </UsersProvider>
+      </UsersProvider>
     </div>
   )
 }
