@@ -1,4 +1,4 @@
-export interface UserValues {
+export interface User {
   firstname: string;
   lastname: string;
   dob: string;

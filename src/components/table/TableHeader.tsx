@@ -1,18 +1,16 @@
 interface TableHeaderProps {
   thead: string[];
-  handleClick: (columnTitle: string) => void;
-  initialData: boolean;
+  handleClick: (columnTitle: string) => void;  
   columnSorted: string;
-  sort: boolean;
+  sortDirection: string | null;
 }
 
 const TableHeader = ({
   thead,
-  handleClick,
-  initialData,
+  handleClick,  
   columnSorted,
-  sort,
-}: TableHeaderProps) => {
+  sortDirection,
+}: TableHeaderProps) => {  
   return (
     <thead className='ltr:text-left rtl:text-right'>
       <tr>
@@ -26,7 +24,7 @@ const TableHeader = ({
             <span className='ml-2'>
               <span
                 className={`mr-1 ${
-                  !initialData && head === columnSorted && !sort
+                   head === columnSorted && sortDirection === 'asc'
                     ? 'text-customGreenDark'
                     : 'text-gray-300'
                 }`}
@@ -35,7 +33,7 @@ const TableHeader = ({
               </span>
               <span
                 className={`${
-                  !initialData && head === columnSorted && sort
+                  head === columnSorted && sortDirection === 'desc'
                     ? 'text-customGreenDark'
                     : 'text-gray-300'
                 }`}

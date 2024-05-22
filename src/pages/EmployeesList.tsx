@@ -2,16 +2,16 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UsersContext } from '../context/UserContext';
 import { usePagination } from '../utils/usePagination';
-import { UserValues } from '../interfaces/Interfaces';
+import { User } from '../interfaces/Interfaces';
 import TableHeader from '../components/table/TableHeader';
+import Pagination from '../components/table/Pagination';
+import TableBody from '../components/table/TableBody';
 
 const EmployeesList = () => {
   const { users } = useContext(UsersContext);
   const [usersData, setUsersData] = useState(users);
-  const [sort, setSort] = useState(true);
-  const [initialData, setInitialData] = useState(true);
+  const [sortDir, setSortDir] = useState('desc');
   const [columnSorted, setColumnSorted] = useState<string>('');
-
 
   const {
     currentUsers,
@@ -21,41 +21,46 @@ const EmployeesList = () => {
     currentPage,
     usersPerPage,
     totalPages,
-  } = usePagination<UserValues>(5, users);
- 
+  } = usePagination<User>(5, users);
+
   interface ColumnKeys {
-    [key: string]: keyof UserValues;
+    [key: string]: keyof User;
   }
 
   const columnKeys: ColumnKeys = {
     'First Name': 'firstname',
     'Last Name': 'lastname',
     'Start Date': 'startdate',
-    'Department': 'department',
+    Department: 'department',
     'Date of Birth': 'dob',
-    'Street': 'street',
-    'City': 'city',
-     'State': 'country',
-     'Zip Code': 'zip',
+    Street: 'street',
+    City: 'city',
+    State: 'country',
+    'Zip Code': 'zip',
   };
 
-  const handleClick = (columnTitle: string) => { 
-    setColumnSorted(columnTitle);
-    const newSort = !sort
-    setSort(newSort);
-    setInitialData(false);
-    
-    const columnKey = columnKeys[columnTitle];
-    if (columnKey) {
-      if (newSort) {
-        usersData.sort((a: UserValues, b: UserValues) => {
-          return a[columnKey].localeCompare(b[columnKey]);
-        });
-        setUsersData(usersData);
-      } else {
-        usersData.reverse();
-      }
+  /* Function to sort the data */
+  const sortFunction = (columnKey: keyof User, sortDirection: string) => {
+    if (sortDirection === 'asc') {
+      usersData.sort((a: User, b: User) => {
+        return a[columnKey].localeCompare(b[columnKey]);
+      });
+      setUsersData(usersData);
+    } else if (sortDirection === 'desc') {
+      usersData.sort((a: User, b: User) => {
+        return b[columnKey].localeCompare(a[columnKey]);
+      });
+      setUsersData(usersData);
     }
+  };
+
+  /* Function to handle the click on the table header */
+  const handleClick = (columnTitle: string) => {
+    const columnKey = columnKeys[columnTitle];
+    setColumnSorted(columnTitle);
+    const newSort = sortDir === 'asc' ? 'desc' : 'asc';
+    setSortDir(newSort);
+    sortFunction(columnKey, newSort);
   };
 
   const thead = [
@@ -83,6 +88,7 @@ const EmployeesList = () => {
           onChange={handleUsersPerPageChange}
           className='m-1 text-sm py-1 focus:ring-customGreenDark focus:border-customGreenDark'
         >
+          <option value='1'>1</option>
           <option value='5'>5</option>
           <option value='10'>10</option>
           <option value='20'>20</option>
@@ -95,79 +101,19 @@ const EmployeesList = () => {
           <TableHeader
             thead={thead}
             handleClick={handleClick}
-            initialData={initialData}
             columnSorted={columnSorted}
-            sort={sort}
+            sortDirection={sortDir}
           />
-        
-          <tbody className='divide-y divide-gray-200'>
-            {currentUsers.map((user, index) => (
-              <tr key={index} className='odd:bg-gray-50'>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.firstname}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.lastname}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {new Date(user.startdate).toLocaleDateString('en-US', {
-                    month: '2-digit',
-                    day: '2-digit',
-                    year: 'numeric',
-                  })}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.department}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.dob}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.street}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.city}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.country}
-                </td>
-                <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-                  {user.zip}
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <TableBody currentUsers={currentUsers} />        
         </table>
       </div>
       {/* pagination */}
-      <div className='flex justify-center'>
-        <ol className='list-none flex space-x-2'>
-          <li>
-            <button
-              onClick={() => handleClickedPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <span>Prev</span>
-            </button>
-          </li>
-          {/* Map sur le tableau de numéros de page pour créer les boutons de pagination */}
-          {pageNumbers.map((pageNumber) => (
-            <li key={pageNumber}>
-              <button onClick={() => handleClickedPage(pageNumber)}>
-                {pageNumber}
-              </button>
-            </li>
-          ))}
-          <li>
-            <button
-              onClick={() => handleClickedPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <span>Next</span>
-            </button>
-          </li>
-        </ol>
-      </div>
+      <Pagination 
+        pageNumbers={pageNumbers}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handleClickedPage={handleClickedPage}
+      />
       {/* Home button */}
       <div className='flex justify-center'>
         <Link to='/'>
