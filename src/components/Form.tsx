@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputField from './inputs/InputField';
 import SelectField from './inputs/SelectField';
-import { UserValues } from '../interfaces/Interfaces';
+import { User } from '../interfaces/Interfaces';
 import { states } from '../data/countries';
 import { departments } from '../data/department';
 import { useContext } from 'react';
@@ -18,7 +18,7 @@ export default function Form() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserValues>({
+  } = useForm<User>({
     defaultValues: {
       firstname: '',
       lastname: '',
@@ -32,14 +32,14 @@ export default function Form() {
 
   const {addUser} = useContext(UsersContext);
 
-  const onSubmit: SubmitHandler<UserValues> = (data) => {
+  const onSubmit: SubmitHandler<User> = (data) => {
     addUser(data);
     console.log(data);
     console.log('submitted');
   };
   return (
     <form
-      className='border-2 border-customGreen p-4 rounded-md'
+      className='border-2 border-customGreen p-4 mb-6 rounded-md'
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='space-y-1'>
