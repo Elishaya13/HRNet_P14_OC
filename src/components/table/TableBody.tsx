@@ -16,6 +16,7 @@ const TableBody = ({ currentUsers }: TableBodyProps) => {
             {user.lastname}
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
+            {/* Format the date */}
             {new Date(user.startdate).toLocaleDateString('en-US', {
               month: '2-digit',
               day: '2-digit',

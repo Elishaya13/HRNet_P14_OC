@@ -1,18 +1,61 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UsersContext } from '../context/UserContext';
-import { usePagination } from '../utils/usePagination';
-import { User } from '../interfaces/Interfaces';
+
 import TableHeader from '../components/table/TableHeader';
 import Pagination from '../components/table/Pagination';
 import TableBody from '../components/table/TableBody';
+import InputSearch from '../components/inputs/InputSearch';
+
+import { useFilteredUsers } from '../hooks/useFilteredUsers.ts';
+import { usePagination } from '../hooks/usePagination.ts';
+import { useSortFunction } from '../hooks/useSortFunction.ts';
+import { useUsers } from '../hooks/useUsers.ts';
+
+import { User } from '../interfaces/Interfaces';
+
+
+interface ColumnKeys {
+  [key: string]: keyof User;
+}
+
+const columnKeys: ColumnKeys = {
+  'First Name': 'firstname',
+  'Last Name': 'lastname',
+  'Start Date': 'startdate',
+  Department: 'department',
+  'Date of Birth': 'dob',
+  Street: 'street',
+  City: 'city',
+  State: 'country',
+  'Zip Code': 'zip',
+};
+
+const columnHeaders = [
+  'First Name',
+  'Last Name',
+  'Start Date',
+  'Department',
+  'Date of Birth',
+  'Street',
+  'City',
+  'State',
+  'Zip Code',
+];
 
 const EmployeesList = () => {
-  const { users } = useContext(UsersContext);
+  const { users } = useUsers();
   const [usersData, setUsersData] = useState(users);
   const [sortDir, setSortDir] = useState('desc');
   const [columnSorted, setColumnSorted] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
+  /* Function to filter the data */
+  const filteredUsers = useFilteredUsers(searchTerm, usersData);
+
+  /* Function to sort the data */
+  const sortFunction = useSortFunction();
+
+  /* Pagination */
   const {
     currentUsers,
     handleUsersPerPageChange,
@@ -21,94 +64,62 @@ const EmployeesList = () => {
     currentPage,
     usersPerPage,
     totalPages,
-  } = usePagination<User>(5, users);
+  } = usePagination<User>(5, filteredUsers);
 
-  interface ColumnKeys {
-    [key: string]: keyof User;
-  }
-
-  const columnKeys: ColumnKeys = {
-    'First Name': 'firstname',
-    'Last Name': 'lastname',
-    'Start Date': 'startdate',
-    Department: 'department',
-    'Date of Birth': 'dob',
-    Street: 'street',
-    City: 'city',
-    State: 'country',
-    'Zip Code': 'zip',
-  };
-
-  /* Function to sort the data */
-  const sortFunction = (columnKey: keyof User, sortDirection: string) => {
-    if (sortDirection === 'asc') {
-      usersData.sort((a: User, b: User) => {
-        return a[columnKey].localeCompare(b[columnKey]);
-      });
-      setUsersData(usersData);
-    } else if (sortDirection === 'desc') {
-      usersData.sort((a: User, b: User) => {
-        return b[columnKey].localeCompare(a[columnKey]);
-      });
-      setUsersData(usersData);
-    }
+  /* Function to handle the search */
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
   };
 
   /* Function to handle the click on the table header */
-  const handleClick = (columnTitle: string) => {
+  const handleColumnSort = (columnTitle: string) => {
     const columnKey = columnKeys[columnTitle];
     setColumnSorted(columnTitle);
     const newSort = sortDir === 'asc' ? 'desc' : 'asc';
     setSortDir(newSort);
-    sortFunction(columnKey, newSort);
+    const sortedUsers = sortFunction(columnKey, newSort, filteredUsers);
+    setUsersData(sortedUsers);
   };
 
-  const thead = [
-    'First Name',
-    'Last Name',
-    'Start Date',
-    'Department',
-    'Date of Birth',
-    'Street',
-    'City',
-    'State',
-    'Zip Code',
-  ];
 
   return (
-    <div className='p-5'>
-      <div className='flex flex-col items-center'>
-        <h1 className='text-black font-bold m-2'>Current Employees</h1>
-      </div>
+    <div className='p-2'>     
       {/* Show entries */}
-      <div className='flex flex-row items-center'>
-        <p> Show </p>
-        <select
-          value={usersPerPage}
-          onChange={handleUsersPerPageChange}
-          className='m-1 text-sm py-1 focus:ring-customGreenDark focus:border-customGreenDark'
-        >
-          <option value='1'>1</option>
-          <option value='5'>5</option>
-          <option value='10'>10</option>
-          <option value='20'>20</option>
-        </select>
-        <p> entries</p>
+      <div className='flex flex-row justify-between mb-2'>
+        <div className='flex flex-row items-center'>
+          <p> Show </p>
+          <select
+            id='usersPerPage'
+            value={usersPerPage}
+            onChange={handleUsersPerPageChange}
+            className='m-1 text-sm py-1 focus:ring-customGreenDark focus:border-customGreenDark'
+          >
+            <option value='1'>1</option>
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='20'>20</option>
+          </select>
+          <p> entries</p>
+        </div>
+        {/* Input Search */}
+        <div className='flex flex-row items-center'>
+          <InputSearch handleSearch={handleSearch} />
+        </div>
       </div>
       {/* Table */}
       <div className='overflow-x-auto'>
         <table className='min-w-full divide-y-2 divide-gray-200 bg-white text-sm'>
           <TableHeader
-            thead={thead}
-            handleClick={handleClick}
+            tableHeaders={columnHeaders}
+            handleClick={handleColumnSort}
             columnSorted={columnSorted}
             sortDirection={sortDir}
           />
-          <TableBody currentUsers={currentUsers} />        
+          <TableBody currentUsers={currentUsers} />
         </table>
       </div>
-      {/* pagination */}
-      <Pagination 
+      {/* Pagination */}
+      <Pagination
         pageNumbers={pageNumbers}
         currentPage={currentPage}
         totalPages={totalPages}

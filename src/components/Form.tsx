@@ -1,11 +1,16 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import InputField from './inputs/InputField';
 import SelectField from './inputs/SelectField';
-import { User } from '../interfaces/Interfaces';
+
 import { states } from '../data/countries';
 import { departments } from '../data/department';
-import { useContext } from 'react';
-import { UsersContext } from '../context/UserContext';
+
+import { useUsers } from '../hooks/useUsers.ts';
+import { Validator } from '../utils/FormValidator.ts';
+
+import { User } from '../interfaces/Interfaces';
+
 
 enum InputType {
   TEXT = 'text',
@@ -13,11 +18,14 @@ enum InputType {
   NUMBER = 'number',
 }
 
-export default function Form() {
+
+const Form = () => {
+  /* Registering tthe form with react-hook-form */
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<User>({
     defaultValues: {
       firstname: '',
@@ -29,14 +37,15 @@ export default function Form() {
       zip: '',
     },
   });
-
-  const {addUser} = useContext(UsersContext);
+ 
+  const { addUser } = useUsers();
 
   const onSubmit: SubmitHandler<User> = (data) => {
     addUser(data);
     console.log(data);
     console.log('submitted');
   };
+
   return (
     <form
       className='border-2 border-customGreen p-4 mb-6 rounded-md'
@@ -48,8 +57,10 @@ export default function Form() {
             <InputField
               {...register('firstname', {
                 required: 'First Name is required',
-                minLength: 2,
-                maxLength: 20,
+                ...Validator.validateLength(2, 16),
+                validate: {
+                  noSpecialChars: Validator.validateNoSpecialChars,
+                },
               })}
               type={InputType.TEXT}
               id='firstname'
@@ -59,8 +70,10 @@ export default function Form() {
             <InputField
               {...register('lastname', {
                 required: 'Last Name is required',
-                minLength: 2,
-                maxLength: 20,
+                ...Validator.validateLength(2, 20),
+                validate: {
+                  noSpecialChars: Validator.validateNoSpecialChars,
+                },
               })}
               type={InputType.TEXT}
               id='lastname'
@@ -68,14 +81,23 @@ export default function Form() {
               error={errors.lastname?.message}
             />
             <InputField
-              {...register('dob', { required: 'Date of Birth is required' })}
+              {...register('dob', {
+                required: 'Date of Birth is required',
+                validate: {
+                  atLeast16: Validator.validateAge,
+                },
+              })}
               type={InputType.DATE}
               id='dob'
               label='Date of Birth'
               error={errors.dob?.message}
             />
             <InputField
-              {...register('startdate', { required: 'Start Date is required' })}
+              {...register('startdate', {
+                required: 'Start Date is required', validate: {
+                  atLeast16: (value) => Validator.validateStartDate(value, getValues('dob'))
+                },
+                })}
               type={InputType.DATE}
               id='startdate'
               label='Start Date'
@@ -100,14 +122,24 @@ export default function Form() {
         {/* end of divider */}
         <div className='space-y-2 pb-3'>
           <InputField
-            {...register('street', { required: 'Street is required' })}
+            {...register('street', {
+              required: 'Street is required', ...Validator.validateLength(2, 24),
+              validate: {
+                noSpecialChars: Validator.validateNoSpecialChars,
+              },
+            })}
             type={InputType.TEXT}
             id='street'
             label='Street'
             error={errors.street?.message}
           />
           <InputField
-            {...register('city', { required: 'City is required' })}
+            {...register('city', {
+              required: 'City is required', ...Validator.validateLength(2, 24),
+              validate: {
+                noSpecialChars: Validator.validateNoSpecialChars,
+              },
+            })}
             type={InputType.TEXT}
             id='city'
             label='City'
@@ -129,7 +161,9 @@ export default function Form() {
             ))}
           </SelectField>
           <InputField
-            {...register('zip', { required: 'Zip is required' })}
+            {...register('zip', {
+              required: 'Zip is required', ...Validator.validateLength(3, 12)              
+            })}
             type={InputType.NUMBER}
             id='zip'
             label='Zip'
@@ -165,7 +199,7 @@ export default function Form() {
         </div>
       </div>
       {/* Button */}
-      <div className='flex justify-center'>      
+      <div className='flex justify-center'>
         <button
           className='bg-customGreenDark border-2 hover:bg-customBlack hover:text-white text-white font-medium py-1 px-4 rounded focus:outline-none focus:shadow-outline'
           type='submit'
@@ -175,4 +209,6 @@ export default function Form() {
       </div>
     </form>
   );
-}
+};
+
+export default Form;

@@ -1,12 +1,22 @@
 interface TableHeaderProps {
-  thead: string[];
+  tableHeaders: string[];
   handleClick: (columnTitle: string) => void;  
   columnSorted: string;
   sortDirection: string | null;
 }
 
+/**
+ * Table header component
+ * 
+ * @param thead // table header
+ * @param handleClick // function to handle the click on the table header
+ * @param columnSorted // column sorted
+ * @param sortDirection // sort direction
+ * 
+ * @returns // table header component
+ */
 const TableHeader = ({
-  thead,
+  tableHeaders,
   handleClick,  
   columnSorted,
   sortDirection,
@@ -14,7 +24,7 @@ const TableHeader = ({
   return (
     <thead className='ltr:text-left rtl:text-right'>
       <tr>
-        {thead.map((head, index) => (
+        {tableHeaders.map((head, index) => (
           <th
             key={index}
             className='whitespace-nowrap px-4 py-2 font-medium text-gray-900'

@@ -17,6 +17,7 @@ const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
         </label>
         <select
           ref={ref}
+          autoComplete='off'
           {...selectProps}
           className='mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-customGreenDark focus:border-customGreenDark sm:text-sm '
         >
