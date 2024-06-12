@@ -10,8 +10,9 @@ Ce projet a été réalisé dans le cadre du 14ème module de la formation OpenC
 - Mettre en place son environnement Front-End
 - Produire de la documentation technique pour une application
 ## Screenshots
-(a venir)
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot 1](https://pictures.angiepons.fr/images/other/hrnet_1.png)
+![App Screenshot 2](https://pictures.angiepons.fr/images/other/hrnet_2.png)
+![App Screenshot 3](https://pictures.angiepons.fr/images/other/hrnet_3.png)
 
 
 ## Tech Stack
