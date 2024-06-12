@@ -1,4 +1,4 @@
-import EmployeesList from "./EmployeesList";
+import EmployeesList from "../components/EmployeesList";
 
 const Employees = () => {
     return (    

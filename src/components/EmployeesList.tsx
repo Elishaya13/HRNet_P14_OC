@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import TableHeader from '../components/table/TableHeader';
-import Pagination from '../components/table/Pagination';
-import TableBody from '../components/table/TableBody';
-import InputSearch from '../components/inputs/InputSearch';
+import TableHeader from './table/TableHeader.tsx';
+import Pagination from './table/Pagination.tsx';
+import TableBody from './table/TableBody.tsx';
+import InputSearch from './inputs/InputSearch.tsx';
 
 import { useFilteredUsers } from '../hooks/useFilteredUsers.ts';
 import { usePagination } from '../hooks/usePagination.ts';
 import { useSortFunction } from '../hooks/useSortFunction.ts';
 import { useUsers } from '../hooks/useUsers.ts';
 
-import { User } from '../interfaces/Interfaces';
+import { User } from '../interfaces/Interfaces.ts';
 
 
 interface ColumnKeys {

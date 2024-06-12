@@ -2,10 +2,15 @@ export class Validator {
   static validateAge(value: string): string | boolean {
     const birthDate = new Date(value);
     const today = new Date();
+
+    // Calculate the initial age
     let age = today.getFullYear() - birthDate.getFullYear();
+    // Check if the birthday has already occurred this year
     const m = today.getMonth() - birthDate.getMonth();
+    // Adjust the age if the current month is before the birth month
+    // or it's the birth month but the day is before the birth day
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+      age--; // Decrement the age by 1 as the birthday hasn't occurred yet this year
     }
     return age >= 16 || 'Employee must be at least 16 years old';
   }
