@@ -1,12 +1,12 @@
 import { createContext, useState } from 'react';
-import { UserValues } from '../interfaces/Interfaces';
+import { User } from '../interfaces/Interfaces';
 import { mockUsers } from '../data/mockUsers';
 
 
 
-type UsersContextValue = {
-  users: UserValues[];
-  addUser: (user: UserValues) => void;
+export type UsersContextValue = {
+  users: User[];
+  addUser: (user: User) => void;
  
 }
 
@@ -18,9 +18,9 @@ export const UsersContext = createContext<UsersContextValue>({
 
 
 export function UsersProvider({ children }: { children: React.ReactNode }) {
-  const [users, setUsers] = useState<UserValues[]>(mockUsers);  
+  const [users, setUsers] = useState<User[]>(mockUsers);  
  
-  const addUser = (user: UserValues) => {
+  const addUser = (user: User) => {
     setUsers(prevUsers => [...prevUsers, user]);
   };
   return (
