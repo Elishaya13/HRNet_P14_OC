@@ -14,6 +14,13 @@ Ce projet a été réalisé dans le cadre du 14ème module de la formation OpenC
 ![App Screenshot 2](https://pictures.angiepons.fr/images/other/hrnet_2.png)
 ![App Screenshot 3](https://pictures.angiepons.fr/images/other/hrnet_3.png)
 
+## Deployment
+
+Check out the deployed application on Vercel:
+
+[HRnet Deployment on Vercel](https://hrnet-p14-oc.vercel.app/)
+
+
 
 ## Tech Stack
 
