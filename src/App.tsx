@@ -5,7 +5,7 @@ import { UsersProvider } from "./context/UserContext"
 const App = () => {
 
   return (
-    <div className='App'>
+    <div className='App h-screen overflow-hidden'>
       <UsersProvider>
         <RouterProvider router={router} />  
       </UsersProvider>

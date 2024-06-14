@@ -11,6 +11,10 @@ export default {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
       },
+      maxHeight: {
+        '3/4': '75vh',
+        '9/10': '90vh',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

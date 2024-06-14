@@ -42,7 +42,10 @@ export class Validator {
   }
 
   static validateNoSpecialChars(value: string): string | boolean {
-    const regex = /^[a-zA-Z0-9]*$/;
-    return regex.test(value) || 'No special characters are allowed';
+    const regex = /^[ \p{L}\p{N}]*$/u;
+    return (
+      regex.test(value) ||
+      'No special characters are allowed except spaces and accents'
+    );
   }
 }
