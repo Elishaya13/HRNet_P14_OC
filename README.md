@@ -24,7 +24,7 @@ Check out the deployed application on Vercel:
 
 ## Tech Stack
 
-**Client:** React, Vite, TypeScript
+**Client:** React, Vite, TypeScript, TailwindCss
 
 
 ## Run Locally
