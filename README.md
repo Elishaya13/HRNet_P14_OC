@@ -1,54 +1,82 @@
-# HRnet - Projet 14 - OpeClassrooms - CDA
+# HRnet - Projet 14 - OpenClassrooms - CDA
 
 Ce projet a été réalisé dans le cadre du 14ème module de la formation OpenClassrooms "concepteur développeur d'applications"
 
 
-## Objectifs
-- Analyser la performance d'une application web
-- Déployer une application front-end
-- Refondre une application pour réduire la dette technique
-- Mettre en place son environnement Front-End
-- Produire de la documentation technique pour une application
-## Screenshots
-![App Screenshot 1](https://pictures.angiepons.fr/images/other/hrnet_1.png)
-![App Screenshot 2](https://pictures.angiepons.fr/images/other/hrnet_2.png)
-![App Screenshot 3](https://pictures.angiepons.fr/images/other/hrnet_3.png)
+## Objectifs du Projet Académique
 
-## Deployment
+L'objectif principal de ce projet est de migrer une application web utilisant des plugins jQuery vers une application React. Ce processus implique de remplacer les plugins jQuery par des composants React performants, en veillant à maintenir les fonctionnalités existantes. Parmi ces composants React, l'un sera publié sur npm et accompagné d'une documentation technique complète.
 
-Check out the deployed application on Vercel:
+### Objectifs spécifiques
 
-[HRnet Deployment on Vercel](https://hrnet-p14-oc.vercel.app/)
+- **Migrer toute l'application en React** : Convertir l'ensemble de l'application de jQuery à React pour améliorer la performance et la maintenabilité.
+- **Transformer les plugins jQuery en composants React** :
+  - **Sélecteurs de date**
+  - **Fenêtres modales**
+  - **Menus déroulants**
+  - **Tableaux**
+- **Publier un composant sur npm** : Créer l'un des composants React et le publier sur npm pour une utilisation plus large par la communauté.
+- **Produire de la documentation technique** : Documenter le composant React, avec des descriptions claires de sa fonctionnalité et des instructions d'utilisation pour faciliter son intégration par d'autres développeurs.
+- **Analyser la performance de l'application web** : Évaluer les améliorations de performance résultant de la migration vers React.
+- **Mettre en place son environnement Front-End** : Configurer un environnement de développement moderne pour React, incluant les outils et bibliothèques nécessaires.
+- **Réduire la dette technique** : Optimiser le code existant pour une meilleure maintenabilité et évolutivité.
 
-
+Ces objectifs visent à moderniser l'application, améliorer ses performances et fournir des composants réutilisables et bien documentés pour la communauté des développeurs.
 
 ## Tech Stack
 
 **Client:** React, Vite, TypeScript, TailwindCss
 
 
-## Run Locally
+## Exécution en local
 
-Clone the project
-
-```bash
-  git clone https://github.com/Elishaya13/HRnet_p14_OC_CDA
-```
-
-Go to the project directory
+Clonez le projet
 
 ```bash
-  cd HRnet
+  git clone https://github.com/Elishaya13/HRNet_P14_OC
 ```
 
-Install dependencies
+Accédez au répertoire du projet
+
+```bash
+  cd HRNet_P14_OC
+```
+
+Installez les dépendances
 
 ```bash
   npm install
 ```
 
-Start the server
+Démarrez le serveur
 
 ```bash
   npm run dev
 ```
+
+## Captures d'écran
+![App Screenshot 1](https://pictures.angiepons.fr/images/other/hrnet_1.png)
+![App Screenshot 2](https://pictures.angiepons.fr/images/other/hrnet_2.png)
+![App Screenshot 3](https://pictures.angiepons.fr/images/other/hrnet_3.png)
+
+## Déploiement
+
+Consultez l'application déployée sur Vercel:
+
+[HRnet Deployment on Vercel](https://hrnet-p14-oc.vercel.app/)
+
+## L'application avant refonte 
+Visuel :
+
+[HRNet Origin on github Page](https://elishaya13.github.io/HRNet_Origin/)
+
+Code :
+
+[HRNet code d'origine](https://github.com/Elishaya13/HRNet_Origin)
+
+## Composant modal React réalisé 
+
+Composant Modal crée pour le projet et publié sur npmjs :
+
+[Composant Modal React](https://github.com/Elishaya13/react-modal-lib-elishaya)
+
