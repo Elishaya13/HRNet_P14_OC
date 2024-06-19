@@ -1,21 +1,26 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+// Components
 import InputField from './inputs/InputField';
 import SelectField from './inputs/SelectField';
+import { Modal } from 'elishaya-react-modal-lib';
 
+// Data
 import { states } from '../data/countries';
 import { departments } from '../data/department';
 
+// Hooks and Utils
 import { useUsers } from '../hooks/useUsers.ts';
 import { Validator } from '../utils/FormValidator.ts';
 
 import { User } from '../interfaces/Interfaces';
 
-import { Modal } from 'elishaya-react-modal-lib';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
+
+// Enum for input types (text, date, number)
 enum InputType {
   TEXT = 'text',
   DATE = 'date',
@@ -56,7 +61,6 @@ const Form = () => {
     setIsOpen(false) 
     navigate('/employees')
   }  
-
 
   return (
     <>
@@ -221,6 +225,7 @@ const Form = () => {
           </button>
         </div>
       </form>
+      {/* Modal */}
       <Modal 
         isOpen={isOpen}         
         onClose={handleClose} 

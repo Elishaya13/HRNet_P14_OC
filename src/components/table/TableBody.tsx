@@ -4,6 +4,11 @@ interface TableBodyProps {
   currentUsers: User[];
 }
 
+/**
+ *  Table content component
+ *  @param currentUsers  // current users array
+ *  @returns  // table body content 
+ */
 const TableBody = ({ currentUsers }: TableBodyProps) => {
   return (
     <tbody className='divide-y divide-gray-200'>

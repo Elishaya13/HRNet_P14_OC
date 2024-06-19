@@ -7,7 +7,7 @@ const Header = () => {
     <header className='flex flex-col items-center pt-5'>
       <link rel='preload' href={logo} as='image' />
       <img src={logo} alt='hrnet_logo' className='w-24 h-24' />
-      {/* menu de navigation */}
+      {/* Navigation menu */}
       <nav className='flex items-end pt-7 pb-5'>
         <ul className='text-white flex flex-row'>
           <li>

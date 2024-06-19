@@ -5,6 +5,14 @@ interface PaginationProps {
   handleClickedPage: (pageNumber: number) => void;
 }
 
+/**
+ * Pagination component that renders pagination buttons
+ * @param pageNumbers - The array of page numbers
+ * @param currentPage - The current page number
+ * @param totalPages - The total number of pages
+ * @param handleClickedPage - The function to handle the click on a page number
+ * @returns The Pagination component
+ */
 const Pagination = ({
   pageNumbers,
   currentPage,

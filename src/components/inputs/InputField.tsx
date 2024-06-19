@@ -6,6 +6,14 @@ interface InputFieldProps extends HTMLProps<HTMLInputElement> {
   type: string;
 }
 
+/**
+ * InputField component that renders an input field with a label and an error message
+ * @param label - The label for the input field
+ * @param error - The error message to display
+ * @param type - The type of input field
+ * @param inputProps - The input props
+ * @returns The InputField component
+ */
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
   label,
   error,

@@ -5,6 +5,13 @@ interface SelectFieldProps extends HTMLProps<HTMLSelectElement> {
   error?: string;
 }
 
+/**
+ * SelectField component that renders a select field with a label and an error message
+ * @param label - The label for the select field
+ * @param error - The error message to display
+ * @param selectProps - The select props
+ * @returns The SelectField component
+ */
 const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
   ({ label, error, children, ...selectProps }, ref) => {
     return (

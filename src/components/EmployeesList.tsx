@@ -67,7 +67,8 @@ const EmployeesList = () => {
   } = usePagination<User>(5, filteredUsers);
 
   /* Function to handle the search */
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
+  const handleSearch = (e: InputChangeEvent) => {
     setSearchTerm(e.target.value);
   };
 

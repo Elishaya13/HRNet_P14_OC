@@ -2,7 +2,11 @@ interface InputSearchProps {
     handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
     
-
+/**
+ * InputSearch component that renders an input field for searching
+ * @param handleSearch - The function to handle the search
+ * @returns The InputSearch component * 
+ */
 const InputSearch = ({ handleSearch }: InputSearchProps) => {
   return (
     <>
