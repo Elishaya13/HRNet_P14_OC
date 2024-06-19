@@ -27,7 +27,11 @@ const TableBody = ({ currentUsers }: TableBodyProps) => {
             {user.department}
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-            {user.dob}
+            {new Date(user.dob).toLocaleDateString('en-US', {
+              month: '2-digit',
+              day: '2-digit',
+              year: 'numeric',
+            })}            
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
             {user.street}
