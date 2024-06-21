@@ -25,6 +25,7 @@ export const usePagination = <T>(initialUsersPerPage: number, users: T[]) => {
   /* Function to handle the change of users per page */
   const handleUsersPerPageChange = (event: { target: { value: string } }) => {
     setUsersPerPage(parseInt(event.target.value));
+    setCurrentPage(1);
   };
 
   /* Function to handle the click on a page number */
@@ -45,6 +46,8 @@ export const usePagination = <T>(initialUsersPerPage: number, users: T[]) => {
     pageNumbers,
     currentPage,
     usersPerPage,
-    totalPages,
+    firstUserIndexOnPage,
+    lastUserIndexOnPage,
+    totalUsers: users.length,
   };
 };

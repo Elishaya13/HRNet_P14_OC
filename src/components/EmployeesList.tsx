@@ -59,7 +59,9 @@ const EmployeesList = () => {
     pageNumbers,
     currentPage,
     usersPerPage,
-    totalPages,
+    firstUserIndexOnPage,
+    lastUserIndexOnPage,
+    totalUsers,
   } = usePagination<User>(5, filteredUsers);
 
   /* Function to handle the search */
@@ -116,10 +118,14 @@ const EmployeesList = () => {
       </div>
       {/* Pagination */}
       <Pagination
-        pageNumbers={pageNumbers}
         currentPage={currentPage}
-        totalPages={totalPages}
+        usersPerPage={usersPerPage}
+        totalUsers={totalUsers}
         handleClickedPage={handleClickedPage}
+        pageNumbers={pageNumbers}
+        totalPages={pageNumbers.length}
+        firstUserIndexOnPage={firstUserIndexOnPage}
+        lastUserIndexOnPage={lastUserIndexOnPage}
       />
       {/* Home button */}
       <div className='flex justify-center'>
