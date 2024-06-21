@@ -8,7 +8,7 @@ import InputSearch from './inputs/InputSearch.tsx';
 
 import { useFilteredUsers } from '../hooks/useFilteredUsers.ts';
 import { usePagination } from '../hooks/usePagination.ts';
-import { useSortFunction } from '../hooks/useSortFunction.ts';
+import { sortUserData } from '../utils/sortUserData.ts';
 import { useUsers } from '../hooks/useUsers.ts';
 
 import { User } from '../interfaces/Interfaces.ts';
@@ -26,7 +26,7 @@ const columnKeys: ColumnKeys = {
   'Date of Birth': 'dob',
   Street: 'street',
   City: 'city',
-  State: 'country',
+  State: 'state',
   'Zip Code': 'zip',
 };
 
@@ -53,7 +53,7 @@ const EmployeesList = () => {
   const filteredUsers = useFilteredUsers(searchTerm, usersData);
 
   /* Function to sort the data */
-  const sortFunction = useSortFunction();
+  // const sortFunction = useSortFunction();
 
   /* Pagination */
   const {
@@ -78,7 +78,7 @@ const EmployeesList = () => {
     setColumnSorted(columnTitle);
     const newSort = sortDir === 'asc' ? 'desc' : 'asc';
     setSortDir(newSort);
-    const sortedUsers = sortFunction(columnKey, newSort, filteredUsers);
+    const sortedUsers = sortUserData(columnKey, newSort, filteredUsers);
     setUsersData(sortedUsers);
   };
 

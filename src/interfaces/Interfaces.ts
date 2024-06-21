@@ -6,6 +6,6 @@ export interface User {
   street: string;
   city: string;
   zip: string;
-  country: string;
+  state: string;
   department: string;
 }

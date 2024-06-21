@@ -7,18 +7,18 @@ export const mockUsers = [
     street: '123 Main St',
     city: 'Anytown',
     zip: '12345',
-    country: 'CF',
+    state: 'CF',
     department: 'Engineering',
   },
   {
     firstname: 'Liane',
     lastname: 'Smith',
-    dob: '1982-02-02',
-    startdate: '2021-10-02',
+    dob: '1982-12-22',
+    startdate: '2021-12-22',
     street: '456 Elm St',
     city: 'Othertown',
     zip: '67890',
-    country: 'CA',
+    state: 'CA',
     department: 'Marketing',
   },
   {
@@ -29,7 +29,7 @@ export const mockUsers = [
     street: '789 Oak St',
     city: 'Thirdtown',
     zip: '13579',
-    country: 'US',
+    state: 'US',
     department: 'Sales',
   },
   {
@@ -40,7 +40,7 @@ export const mockUsers = [
     street: '1011 Pine St',
     city: 'Fourthtown',
     zip: '24680',
-    country: 'UK',
+    state: 'UK',
     department: 'Human Resources',
   },
   {
@@ -51,7 +51,7 @@ export const mockUsers = [
     street: '1213 Cedar St',
     city: 'Fifthtown',
     zip: '36912',
-    country: 'DE',
+    state: 'DE',
     department: 'Legal',
   },
   {
@@ -62,7 +62,7 @@ export const mockUsers = [
     street: '1415 Maple St',
     city: 'Sixthtown',
     zip: '48264',
-    country: 'FR',
+    state: 'FR',
     department: 'Finance',
   },
 ];

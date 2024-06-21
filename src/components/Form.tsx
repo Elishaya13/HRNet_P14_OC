@@ -163,10 +163,10 @@ const Form = () => {
               error={errors.city?.message}
             />
             <SelectField
-              {...register('country', { required: 'Country is required' })}
-              id='country'
-              label='Country'
-              error={errors.country?.message}
+              {...register('state', { required: 'State is required' })}
+              id='state'
+              label='State'
+              error={errors.state?.message}
             >
               <option value=''>
                 {states.length > 0 ? states[0].name : 'Select...'}{' '}
