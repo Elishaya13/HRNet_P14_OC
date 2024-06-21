@@ -1,4 +1,4 @@
-import { User } from "../../interfaces/Interfaces";
+import { User } from '../../interfaces/Interfaces';
 
 interface TableBodyProps {
   currentUsers: User[];
@@ -7,7 +7,7 @@ interface TableBodyProps {
 /**
  *  Table content component
  *  @param currentUsers  // current users array
- *  @returns  // table body content 
+ *  @returns  // table body content
  */
 const TableBody = ({ currentUsers }: TableBodyProps) => {
   return (
@@ -20,14 +20,16 @@ const TableBody = ({ currentUsers }: TableBodyProps) => {
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
             {user.lastname}
           </td>
-          <td className='whitespace-nowrap px-4 py-2 text-gray-700'>            
-            {new Intl.DateTimeFormat('default').format(new Date(user.startdate))}         
+          <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
+            {new Intl.DateTimeFormat('default').format(
+              new Date(user.startdate)
+            )}
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
             {user.department}
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
-            {new Intl.DateTimeFormat('default').format(new Date(user.dob))}            
+            {new Intl.DateTimeFormat('default').format(new Date(user.dob))}
           </td>
           <td className='whitespace-nowrap px-4 py-2 text-gray-700'>
             {user.street}

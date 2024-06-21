@@ -33,7 +33,7 @@ const Header = () => {
             >
               View Current Employees
             </Link>
-          </li>       
+          </li>
         </ul>
       </nav>
     </header>

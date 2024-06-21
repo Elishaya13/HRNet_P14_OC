@@ -1,14 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 /* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
 }
-
 body {
-  @apply font-roboto bg-white m-0 p-0;  
+  @apply font-roboto bg-white m-0 p-0;
 }
-

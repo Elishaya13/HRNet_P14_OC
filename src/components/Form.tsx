@@ -17,9 +17,6 @@ import { Validator } from '../utils/FormValidator.ts';
 
 import { User } from '../interfaces/Interfaces';
 
-
-
-
 // Enum for input types (text, date, number)
 enum InputType {
   TEXT = 'text',
@@ -27,11 +24,10 @@ enum InputType {
   NUMBER = 'number',
 }
 
-
 const Form = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  
-   /* Registering the form with react-hook-form */
+  const [isOpen, setIsOpen] = useState(false);
+
+  /* Registering the form with react-hook-form */
   const {
     register,
     handleSubmit,
@@ -48,19 +44,19 @@ const Form = () => {
       zip: '',
     },
   });
- 
+
   const { addUser } = useUsers();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<User> = (data) => {
-    addUser(data);   
-    setIsOpen(true);  
+    addUser(data);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setIsOpen(false) 
-    navigate('/employees')
-  }  
+    setIsOpen(false);
+    navigate('/employees');
+  };
 
   return (
     <>
@@ -111,10 +107,12 @@ const Form = () => {
               />
               <InputField
                 {...register('startdate', {
-                  required: 'Start Date is required', validate: {
-                    atLeast16: (value) => Validator.validateStartDate(value, getValues('dob'))
+                  required: 'Start Date is required',
+                  validate: {
+                    atLeast16: (value) =>
+                      Validator.validateStartDate(value, getValues('dob')),
                   },
-                  })}
+                })}
                 type={InputType.DATE}
                 id='startdate'
                 label='Start Date'
@@ -140,7 +138,8 @@ const Form = () => {
           <div className='space-y-2 pb-3'>
             <InputField
               {...register('street', {
-                required: 'Street is required', ...Validator.validateLength(2, 24),
+                required: 'Street is required',
+                ...Validator.validateLength(2, 24),
                 validate: {
                   noSpecialChars: Validator.validateNoSpecialChars,
                 },
@@ -152,7 +151,8 @@ const Form = () => {
             />
             <InputField
               {...register('city', {
-                required: 'City is required', ...Validator.validateLength(2, 24),
+                required: 'City is required',
+                ...Validator.validateLength(2, 24),
                 validate: {
                   noSpecialChars: Validator.validateNoSpecialChars,
                 },
@@ -179,7 +179,8 @@ const Form = () => {
             </SelectField>
             <InputField
               {...register('zip', {
-                required: 'Zip is required', ...Validator.validateLength(3, 12)              
+                required: 'Zip is required',
+                ...Validator.validateLength(3, 12),
               })}
               type={InputType.NUMBER}
               id='zip'
@@ -199,7 +200,9 @@ const Form = () => {
           {/* end of divider */}
           <div className='="space-y-2 pb-3'>
             <SelectField
-              {...register('department', { required: 'Department is required' })}
+              {...register('department', {
+                required: 'Department is required',
+              })}
               id='department'
               label='Department'
               error={errors.department?.message}
@@ -226,20 +229,20 @@ const Form = () => {
         </div>
       </form>
       {/* Modal */}
-      <Modal 
-        isOpen={isOpen}         
-        onClose={handleClose} 
-        title='Success!' 
-        message='Employee created successfully!' 
+      <Modal
+        isOpen={isOpen}
+        onClose={handleClose}
+        title='Success!'
+        message='Employee created successfully!'
         buttonMsg='Close'
         iconColor='#5a6f08'
         btnTextColor='white'
-        btnBgColor='#5a6f08'      
+        btnBgColor='#5a6f08'
         styleIcon='check'
         btnBorderRadius='50px'
         modalBorderRadius='15px'
         gapContent={10}
-    />
+      />
     </>
   );
 };

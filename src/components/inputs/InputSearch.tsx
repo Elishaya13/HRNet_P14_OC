@@ -1,11 +1,11 @@
 interface InputSearchProps {
-    handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-    
+
 /**
  * InputSearch component that renders an input field for searching
  * @param handleSearch - The function to handle the search
- * @returns The InputSearch component * 
+ * @returns The InputSearch component *
  */
 const InputSearch = ({ handleSearch }: InputSearchProps) => {
   return (
@@ -33,9 +33,15 @@ const InputSearch = ({ handleSearch }: InputSearchProps) => {
               d='m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z'
             />
           </svg>
-              </div>
-              <input type="search" id="search" className="block w-full pl-9 py-2 pr-4 text-sm text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm
-               focus:ring-customGreenDark focus:border-customGreenDark focus:outline-none " placeholder="Search anything" onChange={handleSearch}/>              
+        </div>
+        <input
+          type='search'
+          id='search'
+          className='block w-full pl-9 py-2 pr-4 text-sm text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm
+               focus:ring-customGreenDark focus:border-customGreenDark focus:outline-none '
+          placeholder='Search anything'
+          onChange={handleSearch}
+        />
       </div>
     </>
   );

@@ -13,7 +13,6 @@ import { useUsers } from '../hooks/useUsers.ts';
 
 import { User } from '../interfaces/Interfaces.ts';
 
-
 interface ColumnKeys {
   [key: string]: keyof User;
 }
@@ -52,9 +51,6 @@ const EmployeesList = () => {
   /* Function to filter the data */
   const filteredUsers = useFilteredUsers(searchTerm, usersData);
 
-  /* Function to sort the data */
-  // const sortFunction = useSortFunction();
-
   /* Pagination */
   const {
     currentUsers,
@@ -82,9 +78,8 @@ const EmployeesList = () => {
     setUsersData(sortedUsers);
   };
 
-
   return (
-    <div className='p-2'>     
+    <div className='p-2'>
       {/* Show entries */}
       <div className='flex flex-row justify-between mb-2'>
         <div className='flex flex-row items-center'>
